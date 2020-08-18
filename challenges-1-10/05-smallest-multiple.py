@@ -1,5 +1,8 @@
+# Dependencies
 import time
 from functools import reduce
+
+# METHOD 1: Human-like
 
 def primesUntil(n):
     primes = [2]
@@ -19,7 +22,6 @@ def primesUntil(n):
 
     return primes
 
-
 def smallestMult(n):
     divisors = primesUntil(n)
 
@@ -27,7 +29,7 @@ def smallestMult(n):
     factors = []
 
     while True:
-        print(numbers)
+        # print(numbers)
         for i in range(0, len(divisors)):
             divisor = divisors[i]
             divided = False
@@ -45,7 +47,7 @@ def smallestMult(n):
 
     return reduce(lambda a, b: a * b, factors)
 
-
+# METHOD 2: More succint
 def smallestMultiple(num):
     arr = list(range(1, num + 1))
     adder = num
@@ -56,6 +58,22 @@ def smallestMultiple(num):
 
     return answer
 
+
+# METHOD 3: Another solution 
+def smallestMult1(num):
+    ans = (num - 1) * num
+    arr = list(range(2, num))
+    arr.reverse()
+    while Dividir(ans, arr)==False:
+        ans += num
+    return ans
+
+def Dividir(num, arr):
+    for i in arr:
+        if num % i != 0:
+            return False
+    return True
+
 start = time.time()
-print(smallestMultiple(20))
+print(smallestMult1(20))
 print(f"It took {(time.time() - start) * 1000} ms")
