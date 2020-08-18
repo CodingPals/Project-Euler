@@ -6,48 +6,47 @@
 ////////// METHOD 1 (Human-like)
 
 const primesUntil = (n) => {
-  const primes = [2]
+  const primes = [2];
 
-  if (n === 2) return primes
+  if (n === 2) return primes;
 
-  for (let i = 3 ; i <= n ; i++) {
+  for (let i = 3; i <= n; i++) {
     let prime = true;
-    for (let j = 0 ; j < primes[primes.length - 1] ; j++) {
+    for (let j = 0; j < primes[primes.length]; j++) {
       if (i % primes[j] === 0) {
-        prime = false
+        prime = false;
+        continue;
       }
     }
 
-    if (prime) primes.push(i)
+    if (prime) primes.push(i);
   }
 
-  return primes
-}
+  return primes;
+};
 
 function smallestMult(n) {
   let divisors = primesUntil(n);
 
-  let numbers = [...Array(n+1).keys()].slice(1)
-  let factors = []
-  
-  while (!numbers.every(num => num === 1)) {
-    for (let j = 0 ; j < divisors.length; j++){
-      let divisor = divisors[j]
-      let divided = false
+  let numbers = [...Array(n + 1).keys()].slice(1);
+  let factors = [];
+
+  while (!numbers.every((num) => num === 1)) {
+    for (let j = 0; j < divisors.length; j++) {
+      let divisor = divisors[j];
+      let divided = false;
       numbers.forEach((num, i) => {
-        if(num % divisor === 0) {
-          numbers[i] = num / divisor
-          divided = true
+        if (num % divisor === 0) {
+          numbers[i] = num / divisor;
+          divided = true;
         }
-      })
-      if (divided) factors.push(divisor)
+      });
+      if (divided) factors.push(divisor);
     }
   }
 
-  return factors.reduce((a, b) => a * b)
+  return factors.reduce((a, b) => a * b);
 }
-
-
 
 /////// METHOD 2: More succint
 
@@ -56,17 +55,15 @@ const smallestMultiple = (num) => {
   // Our first possible answer is the highest of the list
   // We check, if it is not, we keep adding the same number
   // Until we find the solution
-  
-  const arr = Array.from({length:num}).map((_, b) => b + 1);
+
+  const arr = Array.from({ length: num }).map((_, b) => b + 1);
   let answer = arr[arr.length - 1] * arr[arr.length - 2];
-  while(!arr.every(n => answer % n === 0)) {
-    answer += num
+  while (!arr.every((n) => answer % n === 0)) {
+    answer += num;
   }
-  return answer
-}
+  return answer;
+};
 
-
-const start = Date.now()
-console.log(smallestMultiple(20))
-console.log(`Took: ${Date.now() - start} ms` )
-
+const start = Date.now();
+console.log(smallestMult(20));
+console.log(`Took: ${Date.now() - start} ms`);
